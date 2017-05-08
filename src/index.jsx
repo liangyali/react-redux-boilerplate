@@ -1,0 +1,53 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {createStore, combineReducers, applyMiddleware, compose} from 'redux'
+import {Provider} from 'react-redux'
+import createHistory from 'history/createBrowserHistory'
+import {ConnectedRouter, routerReducer, routerMiddleware, push} from 'react-router-redux'
+
+import App from './App'
+import reducers from './reducers'
+
+// Create a history of your choosing (we're using a browser history in this case)
+const history = createHistory()
+
+// Build the middleware for intercepting and dispatching navigation actions
+const middleware = routerMiddleware(history)
+
+// Add the reducer to your store on the `router` key
+// Also apply our middleware for navigating
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const store = createStore(reducers, composeEnhancers(applyMiddleware(...middleware)))
+
+if (module.hot) {
+  // Enable Webpack hot module replacement for reducers
+  module.hot.accept('./reducers', () => {
+    const nextRootReducer = require('./reducers').default
+    store.replaceReducer(nextRootReducer)
+  })
+}
+
+// ========================================================
+// Render Setup
+// ========================================================
+const MOUNT_NODE = document.getElementById('root')
+const render = () => {
+  const NextRoot = require('./App').default
+  ReactDOM.render(
+    <Provider store={store}>
+    {/* ConnectedRouter will use the store from Provider automatically */}
+    <ConnectedRouter history={history}>
+      <NextRoot/>
+    </ConnectedRouter>
+  </Provider>, MOUNT_NODE)
+}
+
+if (module.hot) {
+  // Setup hot module replacement
+  module.hot.accept('./App', () => setTimeout(() => {
+    ReactDOM.unmountComponentAtNode(MOUNT_NODE)
+    render()
+  }))
+}
+
+render()
