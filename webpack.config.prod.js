@@ -15,7 +15,10 @@ module.exports = {
     ],
     vender: [
       'react',
-      'react-dom'
+      'react-dom',
+      'react-router-dom',
+      'history',
+      'axios'
     ]
   },
   output: {
