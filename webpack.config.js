@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
 
@@ -19,7 +20,7 @@ module.exports = {
   output: {
     filename: 'js/[name].[chunkhash:8].js',
     chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
-    path: path.resolve(__dirname, 'build/'),
+    path: path.resolve(__dirname, 'dist/'),
     pathinfo: true,
     publicPath: '/'
   },
@@ -34,7 +35,7 @@ module.exports = {
       use: [{
         loader: 'babel-loader',
         options: {
-          babelrc: false,
+          babelrc: true,
           presets: [require.resolve('babel-preset-react-app')],
           cacheDirectory: true
         }
@@ -45,6 +46,36 @@ module.exports = {
     }, {
       test: /\.css$/,
       use: ['style-loader', 'css-loader?modules']
+    }, {
+      test: /\.less$/,
+      use: [
+        'style-loader',
+        {
+          loader: 'css-loader',
+          options: {
+            modules: true,
+            importLoaders: 1,
+            localIdentName: '[name]__[local]--[hash:base64:5]'
+          }
+        }, {
+          loader: 'postcss-loader',
+          options: {
+            ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+            plugins: () => [
+              autoprefixer({
+                browsers: [
+                  '>1%',
+                  'last 4 versions',
+                  'Firefox ESR',
+                  'not ie < 9', // React doesn't support IE8 anyway
+                ],
+                flexbox: 'no-2009',
+              }),
+            ],
+          },
+        },
+        "less-loader"
+      ]
     }]
   },
   plugins: [

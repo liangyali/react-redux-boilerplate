@@ -3,6 +3,8 @@ import {Route, Link, Switch} from 'react-router-dom'
 import {fetchTodos} from './actions/todos'
 import Home from './containers/Home'
 import styles from './App.css'
+import {Header, Sider} from './components/Layout'
+import {Button} from 'antd'
 
 const About = () => (
   <div>
@@ -19,6 +21,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
+        <Button type="primary">Primary</Button>
         <ul>
           <li>
             <Link to="/">Home</Link>
