@@ -14,23 +14,31 @@ A boilerplate of things that mostly shouldn't exist.
 - [x] [CSS modules](https://github.com/outpunk/postcss-modules)
 - [x] [React Router Redux](https://github.com/reactjs/react-router-redux)
 - [x] [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension)
-
+- [x] [Webpack Bundle Analyzer](https://github.com/th0r/webpack-bundle-analyzer)
 ## Setup
 
-```
+```bash
 $ yarn install
 ```
 
 ## Running
 
-```
+``` bash
 $ yarn start
+
 ```
 
 ## Build
 
-```
+```bash
 $ yarn build
+```
+
+### Bundle Analyzer
+
+```bash
+Analyzer=true yarn run build
+
 ```
 
 ## Note

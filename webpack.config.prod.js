@@ -5,10 +5,11 @@ const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const autoprefixer = require('autoprefixer')
 const ManifestPlugin = require('webpack-manifest-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const extractCSS = new ExtractTextPlugin('css/styles.[hash:8].css')
 
-module.exports = {
+const webpackConfig = {
   entry: {
     app: [
       './src/index.jsx'
@@ -16,9 +17,6 @@ module.exports = {
     vender: [
       'react',
       'react-dom',
-      'react-router-dom',
-      'history',
-      'axios'
     ]
   },
   output: {
@@ -39,7 +37,7 @@ module.exports = {
       use: [{
         loader: 'babel-loader',
         options: {
-          babelrc: false,
+          babelrc: true,
           presets: [require.resolve('babel-preset-react-app')],
           cacheDirectory: true
         }
@@ -53,6 +51,7 @@ module.exports = {
         /\.html$/,
         /\.(js|jsx)$/,
         /\.css$/,
+        /\.less$/,
         /\.json$/,
         /\.bmp$/,
         /\.gif$/,
@@ -70,7 +69,7 @@ module.exports = {
         name: 'media/[name].[hash:8].[ext]',
       }
     }, {
-      test: /\.css$/,
+      test: /\.(css|less)$/,
       loader: extractCSS.extract({
         fallback: 'style-loader',
         use: [{
@@ -79,6 +78,7 @@ module.exports = {
               modules: true,
               importLoaders: 1,
               minimize: true,
+              localIdentName: '[name]__[hash:base64:5]'
             },
           },
           {
@@ -97,6 +97,7 @@ module.exports = {
               ],
             },
           },
+          'less-loader'
         ],
       })
       // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
@@ -104,9 +105,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
+      'process.env.NODE_ENV': JSON.stringify('production')
     }),
     // 开启全局的模块热替换(HMR)
     new webpack.HotModuleReplacementPlugin(),
@@ -114,7 +113,7 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vender',
-      filename: 'js/vender.js'
+      filename: 'js/vender.[hash:8].js'
     }),
     // Minify the code.
     new webpack.optimize.UglifyJsPlugin({
@@ -124,7 +123,7 @@ module.exports = {
       output: {
         comments: false,
       },
-      sourceMap: true,
+      sourceMap: false,
     }),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
@@ -159,3 +158,10 @@ module.exports = {
     tls: 'empty',
   },
 }
+
+// enable Analyzer
+if (process.env.Analyzer && process.env.Analyzer === true) {
+  webpackConfig.plugins.push(new BundleAnalyzerPlugin())
+}
+
+module.exports = webpackConfig

@@ -55,7 +55,7 @@ module.exports = {
           options: {
             modules: true,
             importLoaders: 1,
-            localIdentName: '[name]__[local]--[hash:base64:5]'
+            localIdentName: '[name]__[hash:base64:5]'
           }
         }, {
           loader: 'postcss-loader',
@@ -80,9 +80,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"development"'
-      }
+      'process.env.NODE_ENV': JSON.stringify('development')
     }),
     // 开启全局的模块热替换(HMR)
     new webpack.HotModuleReplacementPlugin(),
@@ -90,7 +88,7 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vender',
-      filename: 'js/vender.js'
+      filename: 'js/vender.[hash:8].js'
     }),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
