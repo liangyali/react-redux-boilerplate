@@ -1,9 +1,7 @@
-import Header from './Header'
-import Sider from './Sider'
-import styles from './Layout.less'
+import Sidebar from './Sidebar'
+import MainContainer from './MainContainer'
 
 export {
-  Header,
-  Sider,
-  styles
+  MainContainer,
+  Sidebar,
 }
