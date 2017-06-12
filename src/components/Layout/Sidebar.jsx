@@ -6,7 +6,6 @@ const SubMenu = Menu.SubMenu
 
 export default class Sidebar extends Component {
   render() {
-    console.log(this.props, '---')
     return (
       <div className={styles.sidebar}>
         <div className={styles.logo}>
@@ -14,7 +13,7 @@ export default class Sidebar extends Component {
         </div>
         <div>
           <Menu mode="inline">
-            <SubMenu key="sub1" title={< span > <Icon type="setting"/> < span > 用户管理 < /span></span >}>
+            <SubMenu key="sub1" title={< span > <Icon type="setting"/> < span > 账号管理 < /span></span >}>
               <Menu.Item key="1">用户管理</Menu.Item>
               <Menu.Item key="2">角色管理</Menu.Item>
             </SubMenu>

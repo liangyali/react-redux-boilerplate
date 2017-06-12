@@ -1,11 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {createStore, combineReducers, applyMiddleware, compose} from 'redux'
+import {createStore, applyMiddleware, compose} from 'redux'
 import {Provider} from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
-import {ConnectedRouter, routerReducer, routerMiddleware, push} from 'react-router-redux'
-
-import App from './App'
+import {ConnectedRouter, routerMiddleware} from 'react-router-redux'
 import reducers from './reducers'
 
 // Create a history of your choosing (we're using a browser history in this case)
@@ -32,7 +30,7 @@ if (module.hot) {
 // ========================================================
 const MOUNT_NODE = document.getElementById('root')
 const render = () => {
-  const NextRoot = require('./App').default
+  const NextRoot = require('./Root').default
   ReactDOM.render(
     <Provider store={store}>
     {/* ConnectedRouter will use the store from Provider automatically */}
@@ -44,7 +42,12 @@ const render = () => {
 
 if (module.hot) {
   // Setup hot module replacement
-  module.hot.accept('./App', () => setTimeout(() => {
+  module.hot.accept('./Root', () => setTimeout(() => {
+    ReactDOM.unmountComponentAtNode(MOUNT_NODE)
+    render()
+  }))
+
+  module.hot.accept('./routes', () => setTimeout(() => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE)
     render()
   }))

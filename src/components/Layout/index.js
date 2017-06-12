@@ -1,7 +1,5 @@
-import Sidebar from './Sidebar'
-import MainContainer from './MainContainer'
+import AppLayout from './AppLayout'
 
 export {
-  MainContainer,
-  Sidebar,
+  AppLayout
 }
