@@ -14,7 +14,6 @@ const renderRoute = (route, key) => {
 }
 
 const renderRoutes = (routes) => {
-  console.log('hello')
   return (
     <Switch>
       {routes.map((route, i) => renderRoute(route, i))}

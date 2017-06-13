@@ -1,8 +1,11 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import renderRoutes from './utils/renderRoutes'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import * as authedActions from '../actions/authed'
+import renderRoutes from '../utils/renderRoutes'
 
-export default class Main extends Component {
+class Main extends Component {
 
   /**
    * 提供childContext,提供子组件进行访问节点进行访问，如用户和其他登录信息
@@ -15,9 +18,7 @@ export default class Main extends Component {
         roles: [''],
         permissions: ['users.manager']
       },
-      authed: {
-        authed: false
-      }
+      authed: this.props.authed
     }
   }
 
@@ -36,3 +37,15 @@ Main.childContextTypes = {
   currentUser: PropTypes.object,
   authed: PropTypes.object
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {authed: state.authed}
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    authedActions: bindActionCreators(authedActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main)

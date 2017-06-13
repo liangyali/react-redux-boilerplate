@@ -5,9 +5,9 @@ import {
   routerReducer,
 } from 'react-router-redux'
 
-import todos from './todos'
+import authed from './authed'
 
 export default combineReducers({
-  todos,
+  authed,
   router: routerReducer
 })

@@ -1,6 +1,6 @@
 import React from 'react'
 import renderRoutes from './utils/renderRoutes'
-import routes from './routes'
+import routes from './containers/routes'
 
 export default() => {
   return (

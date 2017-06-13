@@ -47,7 +47,7 @@ if (module.hot) {
     render()
   }))
 
-  module.hot.accept('./routes', () => setTimeout(() => {
+  module.hot.accept('./containers/routes', () => setTimeout(() => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE)
     render()
   }))
