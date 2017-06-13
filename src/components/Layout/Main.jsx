@@ -37,7 +37,3 @@ MainContainer.contextTypes = {
   routes: PropTypes.array,
   router: PropTypes.object
 }
-
-MainContainer.propTypes = {
-  routes: PropTypes.object
-}

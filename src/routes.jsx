@@ -14,8 +14,6 @@ const NotFound = ({route}) => (
   <div>NotFound{route.path}</div>
 )
 
-console.log(Main)
-
 export default[
   {
     component : Main,
@@ -23,6 +21,7 @@ export default[
       {
         path: '/',
         exact: true,
+        authenticated: true,
         breadcumbName: '首页',
         component: Home
       }, {
