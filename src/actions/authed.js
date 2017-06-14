@@ -18,7 +18,7 @@ const COOKIE_NAME = '_ACCESS_TOKEN'
 
 function redirectLogin() {
   return dispatch => {
-    return dispatch(push('/signin'))
+    return dispatch(push('/login'))
   }
 }
 
@@ -52,7 +52,7 @@ export function initAuthedUser() {
  */
 export function logout() {
   Cookies.remove(COOKIE_NAME)
-  return dispatch => dispatch(push('/login'))
+  return dispatch => dispatch(redirectLogin())
 }
 
 /**

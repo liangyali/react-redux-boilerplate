@@ -9,17 +9,10 @@ import renderRoutes from '../utils/renderRoutes'
 class Main extends Component {
 
   /**
- * 主界面加载进行加载用户，如果没有token进行调整到登陆界面
- */
-  componentDidMount() {
-    this.props.authedActions.initAuthedUser()
-  }
-
-  /**
    * 提供childContext,提供子组件进行访问节点进行访问，如用户和其他登录信息
    */
   getChildContext() {
-    return {routes: this.props.route.routes, authed: this.props.authed}
+    return {routes: this.props.route.routes, authed: this.props.authed,authedActions:this.props.authedActions}
   }
 
   /**
@@ -28,12 +21,12 @@ class Main extends Component {
   render() {
     const {route} = this.props
 
-    // 用户信息没有加载完成，显示loading
-    if (this.props.authed.fetUserRequesting === true) {
-      return (
-        <div className='mask'><Spin spinning={true} tip='加载数据中，请稍后...' size='large'/></div>
-      )
-    }
+    // // 用户信息没有加载完成，显示loading
+    // if (this.props.authed.fetUserRequesting === true) {
+    //   return (
+    //     <div className='mask'><Spin spinning={true} tip='加载数据中，请稍后...' size='large'/></div>
+    //   )
+    // }
 
     return (
       <div>
@@ -54,7 +47,13 @@ Main.childContextTypes = {
  * 当前授权信息
  * @type {array}
  */
-  authed: PropTypes.object
+  authed: PropTypes.object,
+
+  /**
+   * 退出系统
+   * @type {function}
+   */
+  authedActions:PropTypes.object
 }
 
 const mapStateToProps = (state, ownProps) => {

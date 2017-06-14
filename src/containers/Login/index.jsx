@@ -7,7 +7,7 @@ import styles from './style.less'
 
 const FormItem = Form.Item
 
-class Signin extends Component {
+class Login extends Component {
 
   /**
    * 提交用户信息进行登陆验证，并返回token
@@ -83,4 +83,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(Signin))
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(Login))

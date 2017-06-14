@@ -48,7 +48,7 @@
     right: 0;
     font-size: 14px;
 
-    .ant-spin-text{
+    .ant-spin-text {
       font-size: 14px !important;
     }
   }
@@ -76,6 +76,14 @@
   background: #f4f6f8;
   height: 100vh;
 
+  .profile{
+    position: absolute;
+    top:60px;
+    right: 0px;
+    width: 180px;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.08)
+  }
+
   .navbar {
     background: #3e3b59;
     position: relative;
@@ -83,6 +91,43 @@
     height: 60px;
     border: 0;
     width: 100%;
+
+    .nav {
+      list-style: none;
+      float: right;
+      display: block;
+      margin: 0;
+      padding: 0;
+
+      > li {
+        position: relative;
+        float: left;
+        line-height: 60px;
+
+        .avatar {
+          width: 24px;
+          height: 24px;
+          vertical-align: middle;
+          border-radius: 50%;
+        }
+
+        .userName{
+          padding-left:10px;
+          font-size: 14px;
+        }
+
+        > a {
+          position: relative;
+          display: block;
+          padding: 0 14px;
+          color: #7a8599;
+          font-size: 22px;
+          &:hover {
+            color: #fff;
+          }
+        }
+      }
+    }
   }
 
   .breadcrumb {
