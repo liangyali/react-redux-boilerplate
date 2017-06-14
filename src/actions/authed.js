@@ -1,4 +1,5 @@
-import axios from 'axios'
+//authed actions
+const axios = require('axios')
 import Cookies from 'js-cookie'
 import {
   createAction
@@ -9,13 +10,15 @@ import {
 
 const loginRequest = createAction('login request')
 const loginFailure = createAction('login failure')
+const loginSuccess = createAction('login success')
+const fetchUserRequest = createAction('fetch user request')
 const fetchUserSuccess = createAction('fetch user success')
 
 const COOKIE_NAME = '_ACCESS_TOKEN'
 
 function redirectLogin() {
   return dispatch => {
-    return dispatch(push('/login'))
+    return dispatch(push('/signin'))
   }
 }
 
@@ -39,6 +42,7 @@ export function initAuthedUser() {
     if (!accessToken) {
       return dispatch(redirectLogin())
     }
+    dispatch(fetchUserRequest())
     return dispatch(fetchAuthedUser())
   }
 }
@@ -73,10 +77,11 @@ export function login({
         }
       }
     }).then(res => {
-      if (res.status === 201) {
+      if (res.status === 200) {
         Cookies.set(COOKIE_NAME, res.data.jwt, {
           expires: 3600
         })
+        dispatch(loginSuccess())
         dispatch(initAuthedUser())
         dispatch(push('/'))
       } else {

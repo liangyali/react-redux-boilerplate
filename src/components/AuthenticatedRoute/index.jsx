@@ -15,7 +15,7 @@ export default class AuthenticatedRoute extends Component {
       ...rest
     } = this.props
 
-    if (!this.context.authed.authed) {
+    if (!this.context.authed.isAuthenticated) {
       return (<Redirect to={'/signin'}/>)
     }
 

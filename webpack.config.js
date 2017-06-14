@@ -14,7 +14,8 @@ module.exports = {
     ],
     vender: [
       'react',
-      'react-dom'
+      'react-dom',
+      'axios'
     ]
   },
   output: {
@@ -26,7 +27,7 @@ module.exports = {
   },
   devtool: 'cheap-module-source-map',
   resolve: {
-    extensions: ['.js', '.json', '.jsx'],
+    extensions: ['.js', '.json', '.jsx', '.ts'],
   },
   module: {
     strictExportPresence: true,

@@ -1,6 +1,6 @@
-import React from 'react'
 import Main from './Main'
 import Users from './Users'
+import Notfound from '../../components/Notfound'
 
 export default(pathname) => {
   return {
@@ -10,10 +10,8 @@ export default(pathname) => {
     breadcumbName: '账号管理',
     routes: [
       Users.createRoutes(`${pathname}/users`), {
-        breadcumbName: '404',
-        component: () => (
-          <div>404</div>
-        )
+        breadcumbName: '无法找到页面',
+        component: Notfound
       }
     ]
   }

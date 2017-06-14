@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Progress} from 'antd'
 import {AppLayout} from '../../components/Layout'
 
 class Dashboard extends Component {
@@ -6,7 +7,9 @@ class Dashboard extends Component {
     return (
       <div>
         <AppLayout>
-          <div className='white-box'>Dashboard</div>
+          <div className='white-box'>
+            <Progress type='dashboard' percent={75}/>
+          </div>
         </AppLayout>
       </div>
     )

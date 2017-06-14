@@ -13,8 +13,27 @@ if (app.settings.env === 'development') {
 
 app.use(express.static('dist'))
 
+// 模拟登陆token
+app.post('/api/token', (req, res) => {
+  setTimeout(() => {
+    res.json({
+      jwt: 'mock token'
+    })
+  }, 1000)
+})
+
+app.get('/api/users/current', (req, res) => {
+  res.json({
+    name: '',
+    email: 'heloo@test.com',
+    roles: ['admin'],
+    permissions: ['users.manager', 'roles.manager']
+  })
+})
+
 app.use('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../dist/index.html'))
 })
 
-app.listen(9000)
+
+app.listen(8000)

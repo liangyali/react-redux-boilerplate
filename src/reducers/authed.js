@@ -3,9 +3,10 @@ import {
 } from 'redux-actions'
 
 const initialState = {
-  authed: true,
+  isAuthenticated: false,
   user: {},
-  loading: false,
+  loginRequesting: false,
+  fetUserRequesting: true,
   error: {}
 }
 
@@ -13,22 +14,34 @@ export default handleActions({
   'login request' (state, action) {
     return {
       ...state,
-      loading: true
+      loginRequesting: true
     }
   },
   'login failure' (state, action) {
     return {
       ...state,
-      loading: false,
-      error: action.error
+      loginRequesting: false,
+      error: action.payload.error
+    }
+  },
+  'login success' (state, action) {
+    return {
+      ...state,
+      loginRequesting: false
+    }
+  },
+  'fetch user request' (state, action) {
+    return {
+      ...state,
+      fetUserRequesting: true,
     }
   },
   'fetch user success' (state, action) {
     return {
       ...state,
-      loading: false,
-      user: action.user,
-      authed: true
+      fetUserRequesting: false,
+      user: action.payload.user,
+      isAuthenticated: true
     }
   }
 }, initialState)

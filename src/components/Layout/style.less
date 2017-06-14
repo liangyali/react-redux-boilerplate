@@ -12,25 +12,45 @@
 
   .ant-breadcrumb {
     font-size: 14px;
-    a{
+
+    a {
       font-size: 14px;
     }
   }
 
-  .ant-menu-inline, .ant-menu-vertical{
-    border-right: 0px;
+  .ant-menu-inline,
+  .ant-menu-vertical {
+    border-right: 0;
   }
 
-  .ant-breadcrumb>span:last-child {
+  .ant-breadcrumb > span:last-child {
     font-weight: normal;
     color: #888;
-}
+  }
 
-  .white-box{
+  .white-box {
     background: #fff;
     padding: 25px;
     margin-bottom: 30px;
     height: 100%;
+  }
+
+  .mask {
+    position: fixed;
+    z-index: 999;
+    height: 50px;
+    width: 140px;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    font-size: 14px;
+
+    .ant-spin-text{
+      font-size: 14px !important;
+    }
   }
 }
 
@@ -71,7 +91,7 @@
     height: 50px;
   }
 
-  .container{
-    padding:15px;
+  .container {
+    padding: 15px;
   }
 }

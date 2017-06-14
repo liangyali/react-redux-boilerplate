@@ -5,10 +5,6 @@ import Accounts from './Accounts'
 import Signin from './Signin'
 import Dashboard from './Dashboard'
 
-const NotFound = ({route}) => (
-  <div>NotFound</div>
-)
-
 export default[
   {
     component : Main,
@@ -25,9 +21,7 @@ export default[
         path: '/signin',
         component: Signin
       },
-      Accounts.createRoutes('/accounts'), {
-        component: NotFound
-      }
+      Accounts.createRoutes('/accounts')
     ]
   }
 ]

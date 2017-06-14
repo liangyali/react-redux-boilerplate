@@ -4,18 +4,14 @@
   left: 0;
   width: 60%;
   bottom: 0;
-  background: url("/images/signin_bg.png") left bottom no-repeat #3e3b59;
-  background-size: contain;
+  background: url("/images/signin_bg.jpg") left top no-repeat #3e3b59;
+  background-attachment: fixed;
+  opacity: 0.8;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
   background-blend-mode: overlay;
-
-  .container {
-    width: 100%;
-    float: right;
-    text-align: center;
-    padding: 0 75px 0 30px;
-    color: #fff;
-    margin-top: 310px;
-  }
 }
 
 .view {
@@ -41,6 +37,10 @@
 
     .body{
       padding: 60px 20px 60px 60px;
+    }
+
+    .loginButton{
+      width: 100% !important;
     }
 
     .footer {

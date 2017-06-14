@@ -5,17 +5,19 @@ import {Provider} from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
 import {ConnectedRouter, routerMiddleware} from 'react-router-redux'
 import reducers from './reducers'
+import thunk from 'redux-thunk'
 
 // Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory()
 
 // Build the middleware for intercepting and dispatching navigation actions
-const middleware = routerMiddleware(history)
+const middleware = [thunk, routerMiddleware(history)]
 
 // Add the reducer to your store on the `router` key
 // Also apply our middleware for navigating
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(reducers, composeEnhancers(applyMiddleware(...middleware)))
+store.asyncReducers = {}
 
 if (module.hot) {
   // Enable Webpack hot module replacement for reducers
