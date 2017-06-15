@@ -40,7 +40,7 @@ export default class MainContainer extends Component {
       <div className={styles.profile} onMouseLeave={this.toggleMenu.bind(this)}>
       <Menu>
         <Menu.Item key='1'>
-          <Link to='/profile'><Icon type='setting'/><span>修改个人信息</span></Link>
+          <Link to='/profile'><Icon type='user'/><span>个人中心</span></Link>
         </Menu.Item>
         <Menu.Item key='3' >
           <a onClick={this.logout.bind(this)}><Icon type='poweroff'/><span>退出系统</span></a>

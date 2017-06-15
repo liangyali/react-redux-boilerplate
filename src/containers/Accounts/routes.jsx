@@ -1,5 +1,6 @@
 import Main from './Main'
 import Users from './Users'
+import Roles from './Roles'
 import Notfound from '../../components/Notfound'
 
 export default(pathname) => {
@@ -9,7 +10,8 @@ export default(pathname) => {
     authenticated: true,
     breadcumbName: '账号管理',
     routes: [
-      Users.createRoutes(`${pathname}/users`), {
+      Users.createRoutes(`${pathname}/users`),
+      Roles.createRoutes(`${pathname}/roles`), {
         breadcumbName: '无法找到页面',
         component: Notfound
       }

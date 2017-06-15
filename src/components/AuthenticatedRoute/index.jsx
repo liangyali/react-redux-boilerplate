@@ -7,8 +7,14 @@ export default class AuthenticatedRoute extends Component {
 
   static contextTypes = {
     authed: PropTypes.object,
-    authedActions:PropTypes.object
+    authedActions: PropTypes.object
   }
+
+/**
+ * 登陆跳转界面
+ * @type {String}
+ */
+  static LOGIN_URL = '/login'
 
   /**
  * 主界面加载进行加载用户，如果没有token进行调整到登陆界面
@@ -26,12 +32,14 @@ export default class AuthenticatedRoute extends Component {
     // 用户信息没有加载完成，显示loading
     if (this.context.authed.fetUserRequesting === true) {
       return (
-        <div className='mask'><Spin spinning={true} tip='加载数据中，请稍后...' size='large'/></div>
+        <div className='mask'>
+          <Spin spinning={true} tip='加载数据中，请稍后...' size='large'/>
+        </div>
       )
     }
 
     if (!this.context.authed.isAuthenticated) {
-      return (<Redirect to={'/login'}/>)
+      return (<Redirect to={AuthenticatedRoute.LOGIN_URL}/>)
     }
 
     return (

@@ -2,10 +2,101 @@ import React, {Component} from 'react'
 import {Menu, Icon} from 'antd'
 import styles from './style.less'
 import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types'
+import {matchRoutes} from 'react-router-config'
+import settings from '../../settings'
 
 const SubMenu = Menu.SubMenu
+const MenuStore={
+  defaultOpenKeys:null,
+  selectedKeys:null
+}
 
 export default class Sidebar extends Component {
+
+  state = {
+    current: MenuStore.selectedKeys
+  }
+
+  componentWillMount() {
+    /**
+     * 处理地址刷新进入界面的状态，这里使用静态变量进行处理保证进入页面执行一次
+     */
+    if (MenuStore.defaultOpenKeys === null) {
+      MenuStore.defaultOpenKeys = this.getDefaultSelectKeys()
+      MenuStore.selectedKeys= MenuStore.defaultOpenKeys
+    }
+
+    this.setState({
+      ...this.state,
+      current: MenuStore.selectedKeys
+    })
+  }
+
+  /**
+ * 根据当前路由匹配地址，返回匹配的url列表
+ * @return {Array<string>}
+ */
+  getDefaultSelectKeys() {
+    const branchs = matchRoutes(this.context.routes || {}, this.context.router.route.location.pathname)
+    return branchs.map(item => item.match.url)
+  }
+
+  /**
+ * 显示SubMenu title
+ * @param  {string} title
+ * @param  {string} icon
+ * @return {React.Element}
+ */
+  renderSubMenuTitle(title, icon) {
+    return (
+      <span>
+        <Icon type={icon}/>
+        <span>
+          {title}
+        </span>
+      </span>
+    )
+  }
+
+  handleMenuClick = (e) => {
+  MenuStore.selectedKeys=[e.key]
+  MenuStore.defaultOpenKeys.push(e.key)
+
+   this.setState({
+     ...this.state,
+     current: MenuStore.selectedKeys,
+   })
+ }
+
+  /**
+ * render Menus
+ * @param  {array} menus
+ * @return {React.Element}
+ */
+  renderMenus(menus) {
+
+    if (!menus) {
+      return null
+    }
+
+    return (menus).map(menu => {
+      if (menu.subs && menu.subs.length > 0) {
+        return (
+          <SubMenu key={menu.path} title={this.renderSubMenuTitle(menu.title || '', menu.icon || '')}>
+            {this.renderMenus(menu.subs)}
+          </SubMenu>
+        )
+      }
+
+      return (
+        <Menu.Item key={menu.path}>
+          <Link to={menu.path}>{menu.icon && <Icon type={menu.icon}/>}{menu.title}</Link>
+        </Menu.Item>
+      )
+    })
+  }
+
   render() {
     return (
       <div className={styles.sidebar}>
@@ -13,31 +104,16 @@ export default class Sidebar extends Component {
           <img width='150' alt='' src='/images/logo.svg'/>
         </div>
         <div>
-          <Menu mode='inline'>
-            <Menu.Item key=' /dashboard'>
-              <Link to='/dashboard'><Icon type='home'/>系统面板</Link>
-            </Menu.Item>
-            <SubMenu key='sub1' title={< span > <Icon type='setting'/> < span > 账号管理 < /span></span >}>
-              <Menu.Item key='1'>
-                <Link to='/accounts/users'>用户管理</Link>
-              </Menu.Item>
-              <Menu.Item key='2'>
-                <Link to='/accounts/roles'>角色管理</Link>
-              </Menu.Item>
-            </SubMenu>
-            <SubMenu key='sub2' title={< span > <Icon type='appstore'/> < span > 店铺管理 < /span></span >}>
-              <Menu.Item key='5'>测试地址</Menu.Item>
-              <Menu.Item key='6'>测试地址</Menu.Item>
-            </SubMenu>
-            <SubMenu key='sub4' title={< span > <Icon type='setting'/> < span > 数据报表 < /span></span >}>
-              <Menu.Item key='9'>Option 9</Menu.Item>
-              <Menu.Item key='10'>Option 10</Menu.Item>
-              <Menu.Item key='11'>Option 11</Menu.Item>
-              <Menu.Item key='12'>Option 12</Menu.Item>
-            </SubMenu>
+          <Menu mode='inline' onClick={this.handleMenuClick.bind(this)}  selectedKeys={this.state.current}>
+            {this.renderMenus(settings.menus)}
           </Menu>
         </div>
       </div>
     )
   }
+}
+
+Sidebar.contextTypes = {
+  routes: PropTypes.array,
+  router: PropTypes.object
 }

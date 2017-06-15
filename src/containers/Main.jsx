@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {Spin} from 'antd'
 import * as authedActions from '../actions/authed'
 import renderRoutes from '../utils/renderRoutes'
 
@@ -21,12 +20,7 @@ class Main extends Component {
   render() {
     const {route} = this.props
 
-    // // 用户信息没有加载完成，显示loading
-    // if (this.props.authed.fetUserRequesting === true) {
-    //   return (
-    //     <div className='mask'><Spin spinning={true} tip='加载数据中，请稍后...' size='large'/></div>
-    //   )
-    // }
+
 
     return (
       <div>
