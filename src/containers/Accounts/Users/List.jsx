@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
-import {Table} from 'antd'
+import {Table, Button} from 'antd'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import * as usersAction from '../../../actions/users'
 import createColumns from './createColumns'
 
 const data = [
@@ -27,12 +30,28 @@ const data = [
   }
 ]
 
-export default class List extends Component {
+class List extends Component {
   render() {
+    const {usersActions, match} = this.props
     return (
-      <div>
-        <div className='white-box'><Table columns={createColumns()} dataSource={data}/></div>
+      <div className='white-box'>
+        <div className='button-tools'>
+          <Button type='primary' icon='plus-circle-o' onClick={usersActions.redirectNew.bind(this, match.path)}>添加用户</Button>
+        </div>
+        <div><Table columns={createColumns()} dataSource={data}/></div>
       </div>
     )
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {users: state.users}
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    usersActions: bindActionCreators(usersAction, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(List)

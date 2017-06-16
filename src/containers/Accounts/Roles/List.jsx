@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Table} from 'antd'
+import {Table,Button} from 'antd'
 import createColumns from './createColumns'
 
 const data = [
@@ -60,7 +60,12 @@ export default class List extends Component {
   render() {
     return (
       <div>
-        <div className='white-box'><Table columns={createColumns()} pagination={false} dataSource={data}/></div>
+        <div className='white-box'>
+          <div className='button-tools'>
+            <Button type='primary' icon='plus-circle-o'>添加角色</Button>
+          </div>
+          <div><Table columns={createColumns()} dataSource={data}/></div>
+        </div>
       </div>
     )
   }

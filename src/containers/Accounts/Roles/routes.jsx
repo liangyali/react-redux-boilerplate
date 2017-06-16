@@ -6,16 +6,16 @@ export default(pathname) => {
   return {
     path: pathname,
     component: Main,
-    breadcumbName: '角色23管理',
+    breadcumbName: '角色管理',
     routes: [
       {
         path: pathname,
         exact: true,
-        breadcumbName: '列表123',
+        breadcumbName: '角色列表',
         component: List
       }, {
         path: `${pathname}/new`,
-        breadcumbName: '创建',
+        breadcumbName: '创建角色',
         component: New
       }
     ]

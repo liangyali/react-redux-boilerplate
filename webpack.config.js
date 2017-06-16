@@ -93,7 +93,8 @@ module.exports = {
       template: './src/templates/index.html',
       alwaysWriteToDisk: true
     }),
-    new HtmlWebpackHarddiskPlugin()
+    new HtmlWebpackHarddiskPlugin(),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
   ],
 
   // Some libraries import Node modules but don't use them in the browser.

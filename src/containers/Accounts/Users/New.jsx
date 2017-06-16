@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 export default class New extends Component {
   render() {
     return (
-      <div>Create</div>
+      <div className='white-box'>Create</div>
     )
   }
 }

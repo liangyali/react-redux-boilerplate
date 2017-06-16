@@ -77,7 +77,6 @@ export default class Sidebar extends Component {
   }
 
   render() {
-    console.log(this.getDefaultSelectKeys())
     return (
       <div className={styles.sidebar}>
         <div className={styles.logo}>

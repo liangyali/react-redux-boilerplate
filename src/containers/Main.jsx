@@ -25,11 +25,8 @@ class Main extends Component {
     const branchs = matchRoutes(route.routes || {}, this.context.router.route.location.pathname)||[]
     const branch=branchs[0]
 
-    console.log(branch)
-
     // 设置不需要登陆的界面
     if(branch && branch.route.authenticated!==undefined && branch.route.authenticated===false){
-      console.log('Hello')
       return (
         <div>
             {renderRoutes(route.routes)}
@@ -67,7 +64,7 @@ Main.childContextTypes = {
 }
 
 Main.contextTypes={
-  router:PropTypes.object.isRequied
+  router:PropTypes.object
 }
 
 const mapStateToProps = (state, ownProps) => {

@@ -142,7 +142,8 @@ const webpackConfig = {
     new ManifestPlugin({
       fileName: 'asset-manifest.json',
     }),
-    new HtmlWebpackHarddiskPlugin()
+    new HtmlWebpackHarddiskPlugin(),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
   ],
 
   // Some libraries import Node modules but don't use them in the browser.
