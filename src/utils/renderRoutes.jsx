@@ -4,13 +4,13 @@ import AuthenticatedRoute from '../components/AuthenticatedRoute'
 
 const renderRoute = (route, key) => {
 
-  if (route.authenticated && route.authenticated === true) {
-    return (<AuthenticatedRoute key={key} component={route.component} route={route} roles={route.roles || []} permission={route.permissions || []}/>)
+  if (!route.authenticated || route.authenticated === true) {
+    return (
+      <Route key={key} path={route.path} exact={route.exact} strict={route.strict} render={(props) => (<route.component {...props} route={route}/>)}/>
+    )
   }
 
-  return (
-    <Route key={key} path={route.path} exact={route.exact} strict={route.strict} render={(props) => (<route.component {...props} route={route}/>)}/>
-  )
+  return (<AuthenticatedRoute key={key} component={route.component} route={route} roles={route.roles || []} permission={route.permissions || []}/>)
 }
 
 const renderRoutes = (routes) => {

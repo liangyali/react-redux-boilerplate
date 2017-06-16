@@ -61,11 +61,11 @@ export default class MainContainer extends Component {
               </Link>
             </li>
             <li>
-              <a onClick={this.toggleMenu.bind(this)}>
+              <div onClick={this.toggleMenu.bind(this)}>
                 <img className={styles.avatar} src='/images/profile.jpg' alt='' />
                 <span className={styles.userName}>测试用户</span>
                 {this.renderMenus()}
-              </a>
+              </div>
             </li>
           </ul>
         </div>

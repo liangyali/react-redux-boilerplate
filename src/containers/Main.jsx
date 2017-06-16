@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import * as authedActions from '../actions/authed'
+import {matchRoutes} from 'react-router-config'
+import {AppLayout} from '../components/Layout'
 import renderRoutes from '../utils/renderRoutes'
 
 class Main extends Component {
@@ -20,12 +22,26 @@ class Main extends Component {
   render() {
     const {route} = this.props
 
+    const branchs = matchRoutes(route.routes || {}, this.context.router.route.location.pathname)||[]
+    const branch=branchs[0]
 
+    console.log(branch)
 
+    // 设置不需要登陆的界面
+    if(branch && branch.route.authenticated!==undefined && branch.route.authenticated===false){
+      console.log('Hello')
+      return (
+        <div>
+            {renderRoutes(route.routes)}
+        </div>
+      )
+    }
+
+    // 登陆界面使用统一的MasterPage
     return (
-      <div>
-        {renderRoutes(route.routes)}
-      </div>
+      <AppLayout>
+          {renderRoutes(route.routes)}
+      </AppLayout>
     )
   }
 }
@@ -48,6 +64,10 @@ Main.childContextTypes = {
    * @type {function}
    */
   authedActions:PropTypes.object
+}
+
+Main.contextTypes={
+  router:PropTypes.object.isRequied
 }
 
 const mapStateToProps = (state, ownProps) => {

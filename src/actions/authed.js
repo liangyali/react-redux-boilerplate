@@ -11,6 +11,7 @@ import {
 const loginRequest = createAction('login request')
 const loginFailure = createAction('login failure')
 const loginSuccess = createAction('login success')
+const loginOut = createAction('login out')
 const fetchUserRequest = createAction('fetch user request')
 const fetchUserSuccess = createAction('fetch user success')
 
@@ -52,7 +53,10 @@ export function initAuthedUser() {
  */
 export function logout() {
   Cookies.remove(COOKIE_NAME)
-  return dispatch => dispatch(redirectLogin())
+  return dispatch => {
+    dispatch(loginOut())
+    dispatch(redirectLogin())
+  }
 }
 
 /**

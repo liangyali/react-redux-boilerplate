@@ -10,7 +10,7 @@ export default class AuthenticatedRoute extends Component {
     authedActions: PropTypes.object
   }
 
-/**
+  /**
  * 登陆跳转界面
  * @type {String}
  */
@@ -20,7 +20,9 @@ export default class AuthenticatedRoute extends Component {
  * 主界面加载进行加载用户，如果没有token进行调整到登陆界面
  */
   componentDidMount() {
-    this.context.authedActions.initAuthedUser()
+    if (!this.context.authed.isAuthenticated) {
+      this.context.authedActions.initAuthedUser()
+    }
   }
 
   render() {

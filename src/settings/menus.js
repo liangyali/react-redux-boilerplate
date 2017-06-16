@@ -28,4 +28,15 @@ export default [{
     title:'店员管理',
     path:'/stores/emp'
   }]
+},{
+  title:'数据分析',
+  icon:'line-chart',
+  path:'/reports',
+  subs:[{
+    title:'客流分析',
+    path:'/reports/customers'
+  },{
+    title:'品类分析',
+    path:'/reports/products'
+  }]
 }]

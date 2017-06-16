@@ -6,6 +6,7 @@ import Login from './Login'
 import Dashboard from './Dashboard'
 import Inbox from './Inbox'
 import Profile from './Profile'
+import Notfound from '../components/Notfound'
 
 export default[
   {
@@ -26,12 +27,18 @@ export default[
       }, {
         path: '/profile',
         breadcumbName: '个人中心',
+
         component: Profile
       }, {
         path: '/login',
+        authenticated: false,
         component: Login
       },
-      Accounts.createRoutes('/accounts')
+      Accounts.createRoutes('/accounts'),
+      {
+        component:Notfound,
+        authenticated: false
+      }
     ]
   }
 ]

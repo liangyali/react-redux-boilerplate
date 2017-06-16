@@ -30,9 +30,16 @@ export default handleActions({
       loginRequesting: false
     }
   },
+  'login out' (state, action) {
+    return {
+      ...state,
+      isAuthenticated: false
+    }
+  },
   'fetch user request' (state, action) {
     return {
       ...state,
+      isAuthenticated:true,
       fetUserRequesting: true,
     }
   },

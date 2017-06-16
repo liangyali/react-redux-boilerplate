@@ -62,7 +62,6 @@
   position: absolute;
   overflow: visible;
   height: 100vh;
-  transition: all 0.3s ease-out;
   box-shadow: -5px 0 20px rgba(0,0,0,.08);
   color: #999;
 
@@ -109,6 +108,8 @@
         position: relative;
         float: left;
         line-height: 60px;
+        padding: 0 14px;
+        color: #7a8599;
 
         .avatar {
           width: 24px;
@@ -122,10 +123,14 @@
           font-size: 14px;
         }
 
+        &:hover{
+          color: #fff;
+        }
+
         > a {
           position: relative;
           display: block;
-          padding: 0 14px;
+
           color: #7a8599;
           font-size: 22px;
           &:hover {

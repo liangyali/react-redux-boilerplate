@@ -7,8 +7,7 @@ export default(pathname) => {
   return {
     path: pathname,
     component: Main,
-    authenticated: true,
-    breadcumbName: '账号管理',
+    breadcumbName: '账号1管理',
     routes: [
       Users.createRoutes(`${pathname}/users`),
       Roles.createRoutes(`${pathname}/roles`), {

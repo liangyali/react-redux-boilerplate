@@ -35,12 +35,7 @@ const webpackConfig = {
     rules: [{
       test: /\.(js|jsx)$/,
       use: [{
-        loader: 'babel-loader',
-        options: {
-          babelrc: true,
-          presets: [require.resolve('babel-preset-react-app')],
-          cacheDirectory: true
-        }
+        loader: 'babel-loader'
       }],
       include: [
         path.resolve(__dirname, 'src')
@@ -159,6 +154,7 @@ const webpackConfig = {
   },
 }
 
+webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 // enable Analyzer
 if (process.env.Analyzer && process.env.Analyzer === true) {
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())

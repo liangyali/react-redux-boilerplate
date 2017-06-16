@@ -25,6 +25,7 @@ module.exports = {
     pathinfo: true,
     publicPath: '/'
   },
+  target: 'web',
   devtool: 'cheap-module-source-map',
   resolve: {
     extensions: ['.js', '.json', '.jsx', '.ts'],
@@ -35,11 +36,6 @@ module.exports = {
       test: /\.(js|jsx)$/,
       use: [{
         loader: 'babel-loader',
-        options: {
-          babelrc: true,
-          presets: [require.resolve('babel-preset-react-app')],
-          cacheDirectory: true
-        }
       }],
       include: [
         path.resolve(__dirname, 'src')

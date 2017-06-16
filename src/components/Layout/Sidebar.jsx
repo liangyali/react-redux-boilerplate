@@ -14,25 +14,6 @@ const MenuStore={
 
 export default class Sidebar extends Component {
 
-  state = {
-    current: MenuStore.selectedKeys
-  }
-
-  componentWillMount() {
-    /**
-     * 处理地址刷新进入界面的状态，这里使用静态变量进行处理保证进入页面执行一次
-     */
-    if (MenuStore.defaultOpenKeys === null) {
-      MenuStore.defaultOpenKeys = this.getDefaultSelectKeys()
-      MenuStore.selectedKeys= MenuStore.defaultOpenKeys
-    }
-
-    this.setState({
-      ...this.state,
-      current: MenuStore.selectedKeys
-    })
-  }
-
   /**
  * 根据当前路由匹配地址，返回匹配的url列表
  * @return {Array<string>}
@@ -61,8 +42,6 @@ export default class Sidebar extends Component {
 
   handleMenuClick = (e) => {
   MenuStore.selectedKeys=[e.key]
-  MenuStore.defaultOpenKeys.push(e.key)
-
    this.setState({
      ...this.state,
      current: MenuStore.selectedKeys,
@@ -98,13 +77,14 @@ export default class Sidebar extends Component {
   }
 
   render() {
+    console.log(this.getDefaultSelectKeys())
     return (
       <div className={styles.sidebar}>
         <div className={styles.logo}>
           <img width='150' alt='' src='/images/logo.svg'/>
         </div>
         <div>
-          <Menu mode='inline' onClick={this.handleMenuClick.bind(this)}  selectedKeys={this.state.current}>
+          <Menu mode='inline' onClick={this.handleMenuClick.bind(this)} defaultOpenKeys={this.getDefaultSelectKeys()}  selectedKeys={this.getDefaultSelectKeys()}>
             {this.renderMenus(settings.menus)}
           </Menu>
         </div>
