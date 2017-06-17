@@ -38,7 +38,7 @@ class List extends Component {
         <div className='button-tools'>
           <Button type='primary' icon='plus-circle-o' onClick={usersActions.redirectNew.bind(this, match.path)}>添加用户</Button>
         </div>
-        <div><Table columns={createColumns()} dataSource={data}/></div>
+        <div><Table rowKey='id' columns={createColumns()} dataSource={data}/></div>
       </div>
     )
   }

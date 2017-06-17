@@ -1,8 +1,16 @@
-import React from 'react'
-import renderRoutes from '../../utils/renderRoutes'
+import React,{Component} from 'react'
+import {renderRoutes} from '../../utils'
 
-export default({route}) => (
-  <div>
-      {renderRoutes(route.routes)}
-  </div>
-)
+
+class Main extends Component{
+  render(){
+    const {route}=this.props
+    return (
+      <div>
+          {renderRoutes(route.routes)}
+      </div>
+    )
+  }
+}
+
+export default Main

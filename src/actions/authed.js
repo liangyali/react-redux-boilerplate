@@ -14,15 +14,21 @@ const loginSuccess = createAction('login success')
 const loginOut = createAction('login out')
 const fetchUserRequest = createAction('fetch user request')
 const fetchUserSuccess = createAction('fetch user success')
+const storeCurrentURL = createAction('store current url')
 
 const COOKIE_NAME = '_ACCESS_TOKEN'
 
+/**
+ * 跳转到login
+ */
 function redirectLogin() {
-  return dispatch => {
-    return dispatch(push('/login'))
-  }
+  return push('/login')
 }
 
+/**
+ * 获取登陆用户信息
+ * @return {Promise<object>}
+ */
 function fetchAuthedUser() {
   return dispatch => {
     return axios({
@@ -34,17 +40,18 @@ function fetchAuthedUser() {
 }
 
 /**
- * 初始化登录用户
- * @return {object}
+ * 初始化登陆信息
  */
-export function initAuthedUser() {
-  return (dispatch, getState) => {
+export function init({currentURL}) {
+  return dispatch => {
     const accessToken = Cookies.get(COOKIE_NAME)
-    if (!accessToken) {
-      return dispatch(redirectLogin())
+    if (accessToken) {
+      dispatch(loginSuccess())
+      dispatch(fetchUserRequest())
+      return dispatch(fetchAuthedUser())
     }
-    dispatch(fetchUserRequest())
-    return dispatch(fetchAuthedUser())
+    dispatch(storeCurrentURL(currentURL))
+    return dispatch(redirectLogin())
   }
 }
 
@@ -69,7 +76,7 @@ export function login({
   email,
   password
 }) {
-  return dispatch => {
+  return (dispatch,getState) => {
     dispatch(loginRequest())
     return axios({
       method: 'post',
@@ -86,8 +93,9 @@ export function login({
           expires: 3600
         })
         dispatch(loginSuccess())
-        dispatch(initAuthedUser())
-        dispatch(push('/'))
+        dispatch(fetchUserRequest())
+        dispatch(fetchAuthedUser())
+        dispatch(push(getState().authed.redirectURL))
       } else {
         dispatch(loginFailure())
       }

@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
 import {Table,Button} from 'antd'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import * as rolesActions from '../../../actions/roles'
 import createColumns from './createColumns'
 
 const data = [
@@ -56,13 +59,15 @@ const data = [
   }
 ]
 
-export default class List extends Component {
+class List extends Component {
   render() {
+    const {rolesActions,match}=this.props
+    console.log(this.props)
     return (
       <div>
         <div className='white-box'>
           <div className='button-tools'>
-            <Button type='primary' icon='plus-circle-o'>添加角色</Button>
+            <Button type='primary' icon='plus-circle-o' onClick={rolesActions.redirectNew.bind(this,match.url)}>添加角色</Button>
           </div>
           <div><Table columns={createColumns()} dataSource={data}/></div>
         </div>
@@ -70,3 +75,15 @@ export default class List extends Component {
     )
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {authed: state.authed}
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    rolesActions: bindActionCreators(rolesActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(List)

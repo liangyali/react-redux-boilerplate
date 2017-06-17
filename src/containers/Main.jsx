@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import * as authedActions from '../actions/authed'
 import {matchRoutes} from 'react-router-config'
 import {AppLayout} from '../components/Layout'
-import renderRoutes from '../utils/renderRoutes'
+import {renderRoutes} from '../utils'
 
 class Main extends Component {
 
@@ -14,6 +14,12 @@ class Main extends Component {
    */
   getChildContext() {
     return {routes: this.props.route.routes, authed: this.props.authed,authedActions:this.props.authedActions}
+  }
+
+  componentDidMount(){
+    this.props.authedActions.init({
+      currentURL:this.context.router.history.location.pathname
+    })
   }
 
   /**
@@ -25,12 +31,19 @@ class Main extends Component {
     const branchs = matchRoutes(route.routes || {}, this.context.router.route.location.pathname)||[]
     const branch=branchs[0]
 
-    // 设置不需要登陆的界面
-    if(branch && branch.route.authenticated!==undefined && branch.route.authenticated===false){
+    // 处理不需要登陆时间
+    if(branch && branch.route.authenticated===false){
       return (
         <div>
             {renderRoutes(route.routes)}
         </div>
+      )
+    }
+
+    // 如果用户需要登录，在登陆信息没有ready,返回null
+    if(this.props.authed.isReady===false){
+      return (
+        <div>loading</div>
       )
     }
 

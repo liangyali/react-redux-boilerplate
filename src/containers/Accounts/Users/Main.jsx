@@ -1,5 +1,5 @@
 import React from 'react'
-import renderRoutes from '../../../utils/renderRoutes'
+import {renderRoutes} from '../../../utils'
 
 export default({route}) => (
   <div>

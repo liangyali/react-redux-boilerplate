@@ -3,11 +3,13 @@ import {
 } from 'redux-actions'
 
 const initialState = {
+  isReady: false,
   isAuthenticated: false,
   user: {},
   loginRequesting: false,
   fetUserRequesting: true,
-  error: {}
+  error: {},
+  redirectURL: '/'
 }
 
 export default handleActions({
@@ -21,12 +23,15 @@ export default handleActions({
     return {
       ...state,
       loginRequesting: false,
+      isReady: true,
       error: action.payload.error
     }
   },
   'login success' (state, action) {
     return {
       ...state,
+      isReady: true,
+      isAuthenticated: true,
       loginRequesting: false
     }
   },
@@ -39,7 +44,7 @@ export default handleActions({
   'fetch user request' (state, action) {
     return {
       ...state,
-      isAuthenticated:true,
+      isAuthenticated: true,
       fetUserRequesting: true,
     }
   },
@@ -49,6 +54,12 @@ export default handleActions({
       fetUserRequesting: false,
       user: action.payload.user,
       isAuthenticated: true
+    }
+  },
+  'store current url' (state, action) {
+    return {
+      ...state,
+      redirectURL: action.payload,
     }
   }
 }, initialState)

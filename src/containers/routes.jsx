@@ -11,10 +11,12 @@ import Notfound from '../components/Notfound'
 export default[
   {
     component : Main,
+    authenticated:false,
     routes : [
       {
         path: '/',
         exact: true,
+        authenticated:false,
         component: () => (<Redirect to='/dashboard'/>)
       }, {
         path: '/dashboard',
